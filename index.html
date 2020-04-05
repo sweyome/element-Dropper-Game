@@ -49,12 +49,12 @@
         function startGame() {
             message.style.display = "none";
             btn.style.display = "none";
+            basket.style.display = "block";
             player.score = 0;
             player.totalBad = 10;
             player.inPlay = true;
             scoreupdate();
             setupBadGuys(6);
-            //! create bad Guys
             requestAnimationFrame(playGame);
         }
         function setupBadGuys(num){
@@ -101,12 +101,20 @@
                 let tempEnemy = document.querySelectorAll(".baddy");
                 if(tempEnemy.length == 0){
                     // end the Game
+                    endGame();
                 }else{
                     for(let i=0;i<tempEnemy.length;i++){
                         bgMover(tempEnemy[i]);
                     } 
                 }               
             }
+        }
+        function endGame(){
+            message.style.display = "block";
+            message.textContent = "Game Over";
+            btn.style.display = "block";
+            basket.style.display = "none"
+            player.inPlay = false;
         }
       function bgMover(e){
           e.y += e.speed;
@@ -115,8 +123,10 @@
           }
           if(isCollide(basket,e)){
               player.score++;
+              container.removeChild(e);
               scoreupdate();
-              console.log("hitt")  
+              makeBad()
+              console.log("collied")  
           }
           e.style.top = e.y + "px";
       }
