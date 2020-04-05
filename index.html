@@ -23,52 +23,68 @@
         const scoreOutput = document.querySelector(".score");
         const badLeft = document.querySelector(".badLeft");
         const btn = document.querySelector(".btn");
-        const basket = document.querySelector("basket");
-        let player = {
-            score: 0,
-            totalBad:0,
-            inPlay: false,
-            speed:15
-        }
+        const basket = document.querySelector(".basket");
+        let boundBasket = basket.getBoundingClientRect();
+
         let keys = {
             ArrowUp:false,
             ArrowDown:false,
             ArrowLeft:false,
             ArrowRight:false
         }
+        let player = {
+            score: 0,
+            totalBad:0,
+            inPlay: false,
+            speed:15
+        };
 
         btn.addEventListener('click', startGame);
         document.addEventListener("keydown", pressKeyOn);
         document.addEventListener("keyup", pressKeyOff);
 
-        function pressKeyOn (event) {
-            console.log(event.key)
-            event.preventDefault();
-            keys[event.key] = true;
-        }
-       function pressKeyOff (event) {
-            console.log(event.key)
-            event.preventDefault();
-            keys[event.key] = false;
-        }
-        
-        
 
-
-
-        function startGame (){
+        function startGame() {
             message.style.display = "none";
             btn.style.display = "none";
             player.score = 0;
             player.totalBad = 10;
+            player.inPlay = true;
             scoreupdate();
             //! create bad Guys
-            // launch animation
-            
+            requestAnimationFrame(playGame);
+        }
+
+        function playGame(){
+            if(player.inPlay == true){
+                if(keys.ArrowDown){
+                    boundBasket.y += player.speed;
+                }
+                if(keys.ArrowUp){
+                    boundBasket.y -= player.speed;
+                }
+                if(keys.ArrowLeft){
+                    boundBasket.x -= player.speed;
+                }
+                if(keys.ArrowRight){
+                    boundBasket.x += player.speed;
+                }
+                basket.style.left = boundBasket.x + "px";
+                basket.style.top = boundBasket.y + "px";
+                requestAnimationFrame(playGame);
+            }
         }
         const scoreupdate = () =>{
             scoreOutput.textContent = player.score;
             badLeft.textContent = player.totalBad;
+        }
+        function pressKeyOn(event){
+            event.preventDefault();
+            keys[event.key] = true;
+        }
+       function pressKeyOff(event){
+            event.preventDefault();
+            keys[event.key] = false;
         }
         
 
