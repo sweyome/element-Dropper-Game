@@ -30,14 +30,40 @@
             inPlay: false,
             speed:15
         }
+        let keys = {
+            ArrowUp:false,
+            ArrowDown:false,
+            ArrowLeft:false,
+            ArrowRight:false
+        }
 
         btn.addEventListener('click', startGame);
+        document.addEventListener("keydown", pressKeyOn);
+        document.addEventListener("keyup", pressKeyOff);
+
+        function pressKeyOn (event) {
+            console.log(event.key)
+            event.preventDefault();
+            keys[event.key] = true;
+        }
+       function pressKeyOff (event) {
+            console.log(event.key)
+            event.preventDefault();
+            keys[event.key] = false;
+        }
+        
+        
+
+
+
         function startGame (){
             message.style.display = "none";
             btn.style.display = "none";
             player.score = 0;
             player.totalBad = 10;
             scoreupdate();
+            //! create bad Guys
+            // launch animation
             
         }
         const scoreupdate = () =>{
