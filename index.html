@@ -24,6 +24,27 @@
         const badLeft = document.querySelector(".badLeft");
         const btn = document.querySelector(".btn");
         const basket = document.querySelector("basket");
+        let player = {
+            score: 0,
+            totalBad:0,
+            inPlay: false,
+            speed:15
+        }
+
+        btn.addEventListener('click', startGame);
+        function startGame (){
+            message.style.display = "none";
+            btn.style.display = "none";
+            player.score = 0;
+            player.totalBad = 10;
+            scoreupdate();
+            
+        }
+        const scoreupdate = () =>{
+            scoreOutput.textContent = player.score;
+            badLeft.textContent = player.totalBad;
+        }
+        
 
     </script>
 </body>
