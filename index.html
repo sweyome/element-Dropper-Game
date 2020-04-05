@@ -97,8 +97,23 @@
                 basket.style.left = boundBasket.x + "px";
                 basket.style.top = boundBasket.y + "px";
                 requestAnimationFrame(playGame);
+
+                let tempEnemy = document.querySelectorAll(".baddy");
+                if(tempEnemy.length == 0){
+                    // end the Game
+                }else{
+                    for(let i=0;i<tempEnemy.length;i++){
+                        bgMover(tempEnemy[i]);
+                    } 
+                }               
             }
         }
+      function bgMover(e){
+          e.y += e.speed;
+          e.style.top = e.y + "px";
+      }
+
+
         const scoreupdate = () =>{
             scoreOutput.textContent = player.score;
             badLeft.textContent = player.totalBad;
