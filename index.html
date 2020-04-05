@@ -24,7 +24,9 @@
         const badLeft = document.querySelector(".badLeft");
         const btn = document.querySelector(".btn");
         const basket = document.querySelector(".basket");
+        const container = document.querySelector(".container")
         let boundBasket = basket.getBoundingClientRect();
+        let boundContainer = container.getBoundingClientRect();
 
         let keys = {
             ArrowUp:false,
@@ -57,16 +59,16 @@
 
         function playGame(){
             if(player.inPlay == true){
-                if(keys.ArrowDown){
+                if(keys.ArrowDown && boundBasket.y < (boundContainer.height - boundBasket.height) ){
                     boundBasket.y += player.speed;
                 }
-                if(keys.ArrowUp){
+                if(keys.ArrowUp && boundBasket.y>0){
                     boundBasket.y -= player.speed;
                 }
-                if(keys.ArrowLeft){
+                if(keys.ArrowLeft && boundBasket.x>0){
                     boundBasket.x -= player.speed;
                 }
-                if(keys.ArrowRight){
+                if(keys.ArrowRight && boundBasket.x < (boundContainer.width - boundBasket.width)){
                     boundBasket.x += player.speed;
                 }
                 basket.style.left = boundBasket.x + "px";
