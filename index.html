@@ -110,6 +110,9 @@
         }
       function bgMover(e){
           e.y += e.speed;
+          if(e.y >boundContainer.height - 100){
+              e.y = -100;
+          }
           e.style.top = e.y + "px";
       }
 
