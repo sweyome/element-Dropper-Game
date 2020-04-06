@@ -69,6 +69,11 @@
                 scoreupdate();
                 let div = document.createElement("div");
                 div.innerHTML = "#"+temp;
+                let ran = Math.floor(Math.random() *50) + 50;
+                div.style.height = ran + "px";
+                div.style.lineHeight = ran + "px";
+                
+                div.style.backgroundColor = "#" + Math.random().toString(16).substr(-6);
                 div.classList.add("baddy");
                 div.x = Math.floor(Math.random()* boundContainer.width-100);
                 if(div.x <0) div.x = 100;
@@ -113,16 +118,19 @@
             message.style.display = "block";
             message.textContent = "Game Over";
             btn.style.display = "block";
-            basket.style.display = "none"
+            basket.style.display = "none" 
             player.inPlay = false;
         }
       function bgMover(e){
           e.y += e.speed;
           if(e.y >boundContainer.height - 100){
               e.y = -100;
+              e.x = Math.floor(Math.random()* boundContainer.width-100);
+                if(e.x <0) e.x = 100;
+                e.style.left = e.x + "px";
           }
           if(isCollide(basket,e)){
-              player.score++;
+              player.score++; 
               container.removeChild(e);
               scoreupdate();
               makeBad()
